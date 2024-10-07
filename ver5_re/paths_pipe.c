@@ -8,10 +8,14 @@ char **path_get(char **envp)
     while(envp[i])
     {
         if(ft_strncmp(envp[i],"PATH=",5) == 0)
+        {
             holder = ft_split(envp[i] + 5,':');
+            return(holder);
+        }
+            
         i++;
     }
-    return(holder);
+    return(NULL);
 }
 
 int valid_dir_ex(char *cmd)
@@ -41,11 +45,12 @@ char *valid_path(char *cmd, char **envp)
             (free(holder_1),free(holder_2));
         else
         {
-            free(holder_1);
+            (free(holder_1),free_double(cmd_paths));
             return (holder_2);
         }
         i++;
     }
+    free_double(cmd_paths);
     return (NULL);
 }
 
