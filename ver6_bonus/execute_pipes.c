@@ -76,7 +76,7 @@ pid_t process_two(int ac, int *end, char **av, char **envp)
     return(pid);
 }
 
-void pipeline(int ac,int *end,char **av,char **envp)
+void multiple_pipes(int ac,int *end,char **av,char **envp)
 {
     int read_from;
     int count;

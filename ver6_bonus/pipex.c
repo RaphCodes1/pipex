@@ -13,7 +13,7 @@ int main(int ac,char **av, char **envp)
         if(pipe(end) == -1)
             error_msg();
         process_one(end,av,envp);
-        pipeline(ac,end,av,envp);
+        multiple_pipes(ac,end,av,envp);
         pid_two = process_two(ac,end,av,envp);
         closing(end,-1);
         waitpid(pid_two,&status,0);
