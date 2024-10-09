@@ -31,8 +31,8 @@ void	ft_bzero(void *s, size_t n);
 
 void    error_msg(void);
 void    free_double(char **holder);
-void    p_err(int *end, int fd);
 void    closing(int *end, int fd);
+void    close_std(void);
 
 pid_t process_one(int *end, char **av, char **envp);
 pid_t process_two(int *end, char **av, char **envp);

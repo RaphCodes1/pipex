@@ -16,12 +16,6 @@ void closing(int *end, int fd)
         close(fd);
 }
 
-void p_err(int *end, int fd)
-{   
-    closing(end,fd);
-    error_msg();
-}
-
 void free_double(char **holder)
 {   
     int i;
@@ -33,5 +27,11 @@ void free_double(char **holder)
         i++;
     }
     free(holder);
+}
+
+void close_std()
+{
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
 }
 
