@@ -15,7 +15,6 @@ int main(int ac,char **av, char **envp)
 {   
     if(ac == 5)
     {   
-        t_pipex pipex;
         int end[2];
         int pid_two;
         int pid_one;

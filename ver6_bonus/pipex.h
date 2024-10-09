@@ -9,14 +9,6 @@
 #include <limits.h>
 #include <stdint.h>
 
-typedef struct s_pipex
-{
-    int fd1;
-    int fd2;
-    char ***cmd_args;
-    char **cmd_paths;
-
-}   t_pipex;
 
 //libft
 void	putstr_fd(char *s, int fd);

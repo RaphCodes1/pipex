@@ -26,7 +26,7 @@ $(NAME_BONUS): $(OBJS_BONUS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o:%.c
-	$(CC) -c $^ -o $@
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean: 
 	$(RM) $(OBJS)
