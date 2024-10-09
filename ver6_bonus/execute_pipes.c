@@ -75,3 +75,48 @@ pid_t process_two(int ac, int *end, char **av, char **envp)
     }
     return(pid);
 }
+
+void pipeline(int ac,int *end,char **av,char **envp)
+{
+    int read_from;
+    int count;
+
+    read_from = dup(end[0]);
+    count = ac - 3;
+    while(count - 2)
+    {
+        close(end[0]);
+        close(end[1]);
+        pipe(end);
+        process_middle(read_from,end,av[ac - count],envp);
+        close(read_from);
+        read_from = dup(end[0]);
+        count--;
+    }
+    close(read_from);
+}
+pid_t process_middle(int to_read,int *end, char *av, char **envp)
+{   
+    int pid;
+    char *holder;
+    char **cmd;
+    
+    pid = fork();
+    if(pid == -1)
+        (close(end[0]),close(end[1]),close_std(),error_msg());
+    if(pid == 0)
+    {   
+        close(end[0]);
+        if(to_read == -1)
+            (close(end[1]),close_std(),error_msg());
+        cmd = ft_split(av,' ');
+        if(!cmd)
+            (close_std(), close(to_read),close(end[1]),error_msg());
+        holder = valid_path(cmd[0],envp);
+        if(!holder)
+            (close_std(), free_double(cmd), close(to_read),close(end[1]),error_msg());
+        execute(holder,cmd,end[1],to_read);
+        exit(EXIT_SUCCESS);
+    }
+    return(pid);
+}
