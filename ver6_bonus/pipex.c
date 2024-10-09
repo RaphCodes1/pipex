@@ -11,7 +11,7 @@
 //         close(end[0]);
 //         close(end[1]);
 //         pipe(end);
-//         middle_pipe(ac,read_from,end,av[ac - count],envp);
+//         process_middle(ac,read_from,end,av[ac - count],envp);
 //         close(read_from);
 //         read_from = dup(end[0]);
 //         count--;
@@ -32,7 +32,7 @@
 //         close(end[0]);
 //         if(to_read == -1)
 //             (close(end[1]),close_std(),error_msg());
-//         cmd = ft_split(av[2],' ');
+//         cmd = ft_split(av,' ');
 //         if(!cmd)
 //             (close_std(), close(to_read),close(end[1]),error_msg());
 //         holder = valid_path(cmd[0],envp);
@@ -46,7 +46,7 @@
 int main(int ac,char **av, char **envp)
 {   
 
-    if(ac == 5)
+    if(ac >= 5)
     {   
         t_pipex pipex;
         int end[2];
@@ -57,10 +57,12 @@ int main(int ac,char **av, char **envp)
         if(pipe(end) == -1)
             error_msg();
         pid_one = process_one(end,av,envp);
+        // pipeline(ac,end,av,envp);
         pid_two = process_two(ac,end,av,envp);
         closing(end,-1);
-        waitpid(pid_one,&status,0);
         waitpid(pid_two,&status,0);
+        waitpid(pid_one,&status,0);
+        wait(NULL);
         if(WIFEXITED(status))
             return(WEXITSTATUS(status));
         else if(WIFSIGNALED(status))
