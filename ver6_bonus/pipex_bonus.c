@@ -1,6 +1,7 @@
 #include "pipex.h"
+#include "get_next_line/get_next_line.h"
 
-void wait_for_processs(int ac)
+void wait_for_processs(int ac, char **av)
 {
     int i;
 
@@ -13,7 +14,7 @@ void wait_for_processs(int ac)
 }
 int main(int ac,char **av, char **envp)
 {   
-    if(ac >= 6)
+    if(ac >= 5)
     {   
         int end[2];
         int pid_two;
@@ -29,7 +30,7 @@ int main(int ac,char **av, char **envp)
         pid_two = process_two(ac,end,av,envp);
         closing(end,-1);
         waitpid(pid_two,&status,0);
-        wait_for_processs(ac);
+        wait_for_processs(ac,av);
         if(WIFEXITED(status))
             return(WEXITSTATUS(status));
         else if(WIFSIGNALED(status))

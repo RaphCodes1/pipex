@@ -12,7 +12,6 @@ char **path_get(char **envp)
             holder = ft_split(envp[i] + 5,':');
             return(holder);
         }
-            
         i++;
     }
     return(NULL);

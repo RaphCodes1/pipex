@@ -82,6 +82,10 @@ void multiple_pipes(int ac,int *end,char **av,char **envp)
     int count;
 
     read_from = dup(end[0]);
+    // if(ft_strncmp(av[1],"here_doc",9) == 0)
+    //     count = ac - 4;
+    // else
+    //     count = ac - 3;
     count = ac - 3;
     while(count - 2)
     {

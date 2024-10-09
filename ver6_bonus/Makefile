@@ -11,7 +11,7 @@ SRCS = pipex.c utils.c paths_pipe.c execute_pipes.c libft/ft_putstr_fd.c libft/f
 
 SRCS_BONUS = pipex_bonus.c here_doc.c utils.c paths_pipe.c execute_pipes.c libft/ft_putstr_fd.c libft/ft_split.c \
 		libft/ft_strlcpy.c libft/ft_strncmp.c libft/ft_strjoin.c libft/ft_strlen.c libft/ft_calloc.c \
-		libft/ft_bzero.c
+		libft/ft_bzero.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
