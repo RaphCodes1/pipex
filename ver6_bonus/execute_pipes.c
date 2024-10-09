@@ -6,17 +6,17 @@ void execute(char *holder, char **cmd, int write, int read)
     if(dup2(read,STDIN_FILENO) == -1)
     {
         (close_std(), free(holder), free_double(cmd), 
-        close(read),close(write));
+        close(read),close(write),error_msg());
     }
     if(dup2(write,STDOUT_FILENO) == -1)
     {
         (close_std(), free(holder), free_double(cmd), 
-        close(read),close(write));
+        close(read),close(write),error_msg());
     }
     if(execve(holder, cmd, NULL) == -1)
     {
         (close_std(), free(holder), free_double(cmd), 
-        close(read),close(write));
+        close(read),close(write),error_msg());
     }
 }
 
