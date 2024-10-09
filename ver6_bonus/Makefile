@@ -9,7 +9,7 @@ SRCS = pipex.c utils.c paths_pipe.c execute_pipes.c libft/ft_putstr_fd.c libft/f
 		libft/ft_strlcpy.c libft/ft_strncmp.c libft/ft_strjoin.c libft/ft_strlen.c libft/ft_calloc.c \
 		libft/ft_bzero.c
 
-SRCS_BONUS = pipex_bonus.c utils.c paths_pipe.c execute_pipes.c libft/ft_putstr_fd.c libft/ft_split.c \
+SRCS_BONUS = pipex_bonus.c here_doc.c utils.c paths_pipe.c execute_pipes.c libft/ft_putstr_fd.c libft/ft_split.c \
 		libft/ft_strlcpy.c libft/ft_strncmp.c libft/ft_strjoin.c libft/ft_strlen.c libft/ft_calloc.c \
 		libft/ft_bzero.c
 
@@ -25,8 +25,9 @@ $(NAME): $(OBJS)
 $(NAME_BONUS): $(OBJS_BONUS)
 	$(CC) $(CFLAGS) $^ -o $@
 
+#add CFLAGS LATER;
 %.o:%.c
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) -c $^ -o $@
 
 clean: 
 	$(RM) $(OBJS)

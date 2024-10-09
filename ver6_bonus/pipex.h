@@ -34,3 +34,5 @@ void execute(char *holder, char **cmd, int write, int read);
 
 char    **path_get(char **envp);
 char    *valid_path(char *cmd, char **envp);
+
+pid_t here_doc(int *end, char **av, char **envp);

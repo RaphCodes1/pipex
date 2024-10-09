@@ -13,7 +13,7 @@ void wait_for_processs(int ac)
 }
 int main(int ac,char **av, char **envp)
 {   
-    if(ac >= 5)
+    if(ac >= 6)
     {   
         int end[2];
         int pid_two;
@@ -21,7 +21,10 @@ int main(int ac,char **av, char **envp)
 
         if(pipe(end) == -1)
             error_msg();
-        process_one(end,av,envp);
+        if(ft_strncmp(av[1],"here_doc",9) == 0)
+            here_doc(end,av,envp);
+        else
+            process_one(end,av,envp);
         multiple_pipes(ac,end,av,envp);
         pid_two = process_two(ac,end,av,envp);
         closing(end,-1);
