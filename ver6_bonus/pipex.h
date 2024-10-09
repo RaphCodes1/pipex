@@ -35,7 +35,7 @@ void    closing(int *end, int fd);
 void    close_std(void);
 
 pid_t process_one(int *end, char **av, char **envp);
-pid_t process_two(int *end, char **av, char **envp);
+pid_t process_two(int ac, int *end, char **av, char **envp);
 
 char    **path_get(char **envp);
 char    *valid_path(char *cmd, char **envp);

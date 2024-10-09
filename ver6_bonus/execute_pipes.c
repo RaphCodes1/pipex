@@ -48,7 +48,7 @@ pid_t process_one(int *end, char **av, char **envp)
     return(pid);
 }
 
-pid_t process_two(int *end, char **av, char **envp)
+pid_t process_two(int ac, int *end, char **av, char **envp)
 {   
     int pid;
     int f2;
@@ -61,10 +61,10 @@ pid_t process_two(int *end, char **av, char **envp)
     if(pid == 0)
     {   
         close(end[1]);
-        f2 = open(av[4],O_CREAT | O_RDWR | O_TRUNC, 0644);
+        f2 = open(av[ac - 1],O_CREAT | O_RDWR | O_TRUNC, 0644);
         if(f2 == -1)
             (close(end[0]),close_std(),error_msg());
-        cmd = ft_split(av[3],' ');
+        cmd = ft_split(av[ac - 2],' ');
         if(!cmd)
             (close(end[0]),close_std(),error_msg());
         holder = valid_path(cmd[0],envp);
