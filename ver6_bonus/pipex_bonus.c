@@ -1,7 +1,7 @@
 #include "pipex.h"
 #include "get_next_line/get_next_line.h"
 
-void wait_for_processs(int ac, char **av)
+void wait_for_processs(int ac)
 {
     int i;
 
@@ -23,14 +23,14 @@ int main(int ac,char **av, char **envp)
         if(pipe(end) == -1)
             error_msg();
         if(ft_strncmp(av[1],"here_doc",9) == 0)
-            here_doc(end,av,envp);
+            here_doc(end,av);
         else
             process_one(end,av,envp);
         multiple_pipes(ac,end,av,envp);
         pid_two = process_two(ac,end,av,envp);
         closing(end,-1);
         waitpid(pid_two,&status,0);
-        wait_for_processs(ac,av);
+        wait_for_processs(ac);
         if(WIFEXITED(status))
             return(WEXITSTATUS(status));
         else if(WIFSIGNALED(status))

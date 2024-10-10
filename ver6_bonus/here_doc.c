@@ -1,28 +1,56 @@
 #include "pipex.h"
 #include "get_next_line/get_next_line.h"
 
-pid_t here_doc(int *end, char **av, char **envp)
+char *get_lines(char **av)
+{
+    char *joined_str;
+    char *next_line;
+    char *stopper;
+    char *temp;
+
+    stopper = ft_strjoin(av[2],"\n");
+    joined_str = ft_strdup("");
+    next_line = get_next_line(STDIN_FILENO);
+    if(!next_line)
+    {
+        (free(stopper),free(next_line),free(joined_str));
+        return(NULL);
+    }
+    while(next_line)
+    {   
+        if(ft_strncmp(next_line,stopper,(ft_strlen(stopper) + 1)) == 0)
+        {
+            (free(next_line),free(stopper));
+            return(joined_str);
+        }
+        temp = ft_strjoin(joined_str,next_line);
+        free(joined_str);
+        joined_str = temp;
+        free(next_line);
+        next_line = get_next_line(STDIN_FILENO);
+    }
+    return(NULL);
+}
+pid_t here_doc(int *end, char **av)
 {
     int pid;
-    int f1;
-    char *holder;
-    char **cmd;
-    
+    char *next_line;
+
+    next_line = get_lines(av);
+    if(!next_line)
+        (close(end[1]),close(end[0]),error_msg());
     pid = fork();
     if(pid == -1)
         (close(end[0]),close(end[1]),close_std(),error_msg());
     if(pid == 0)
-    {
+    {   
         close(end[0]);
-        f1 = open("test",O_RDONLY);
-        if(f1 == -1)
-            (close(end[1]),close_std(),error_msg());
-        if(dup2(f1,STDIN_FILENO) == -1)
-            (close_std(),close(end[1]),close(f1),error_msg());
         if(dup2(end[1],STDOUT_FILENO) == -1)
-            (close_std(),close(end[1]),close(f1),error_msg());
+            (close_std(),close(end[1]),error_msg());
+        write(end[1],next_line,ft_strlen(next_line));
+        free(next_line);
         exit(EXIT_SUCCESS);
-
     }
+    free(next_line);
     return(pid);
 }

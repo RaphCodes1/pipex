@@ -20,6 +20,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 void	*ft_calloc(size_t nmemb, size_t size);
 void	ft_bzero(void *s, size_t n);
+char	*ft_strdup(const char *s1);
 
 void    error_msg(void);
 void    free_double(char **holder);
@@ -35,4 +36,4 @@ void execute(char *holder, char **cmd, int write, int read);
 char    **path_get(char **envp);
 char    *valid_path(char *cmd, char **envp);
 
-pid_t here_doc(int *end, char **av, char **envp);
+pid_t   here_doc(int *end, char **av);
