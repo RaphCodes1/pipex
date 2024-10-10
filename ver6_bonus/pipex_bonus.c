@@ -23,7 +23,10 @@ int main(int ac,char **av, char **envp)
         if(pipe(end) == -1)
             error_msg();
         if(ft_strncmp(av[1],"here_doc",9) == 0)
-            here_doc(end,av);
+            if(ac >= 6)
+                here_doc(end,av);
+            else
+                return(EXIT_FAILURE);
         else
             process_one(end,av,envp);
         multiple_pipes(ac,end,av,envp);
