@@ -12,6 +12,7 @@ void wait_for_processs(int ac)
         i++;
     }
 }
+
 int main(int ac,char **av, char **envp)
 {   
     if(ac >= 5)
@@ -26,7 +27,10 @@ int main(int ac,char **av, char **envp)
             if(ac >= 6)
                 here_doc(end,av);
             else
+            {
+                (close(end[1]),close(end[0]));
                 return(EXIT_FAILURE);
+            }
         else
             process_one(end,av,envp);
         multiple_pipes(ac,end,av,envp);

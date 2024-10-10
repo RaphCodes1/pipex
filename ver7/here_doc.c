@@ -22,11 +22,11 @@ char *get_lines(char *stopper)
             return(joined_str);
         }
         temp = ft_strjoin(joined_str,next_line);
-        free(joined_str);
+        (free(joined_str),free(next_line));
         joined_str = temp;
-        free(next_line);
         next_line = get_next_line(STDIN_FILENO);
     }
+    (free(joined_str),free(next_line));
     return(NULL);
 }
 pid_t here_doc(int *end, char **av)
@@ -38,7 +38,7 @@ pid_t here_doc(int *end, char **av)
     stopper = ft_strjoin(av[2],"\n");
     next_line = get_lines(stopper);
     if(!next_line)
-        (close(end[1]),close(end[0]),error_msg());
+        (close(end[1]),close(end[0]),free(stopper),exit(EXIT_FAILURE));
     pid = fork();
     if(pid == -1)
         (close(end[0]),close(end[1]),close_std(),error_msg());
