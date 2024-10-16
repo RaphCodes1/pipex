@@ -1,7 +1,0 @@
-1. 2 process for two cmds 
- - ./pipex infile "sleep 5" "echo hi" outfile
-2. cmd as paths 
- - /bin/cat
- - ./a.out  
- - test/a.out
-3. FIX THE FCKIN LEAKS

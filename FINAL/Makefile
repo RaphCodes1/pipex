@@ -18,7 +18,7 @@ OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all: $(NAME)
-bonus: $(NAME) $(NAME_BONUS)
+bonus: $(NAME_BONUS)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@

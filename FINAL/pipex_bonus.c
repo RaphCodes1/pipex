@@ -24,7 +24,16 @@ void	wait_for_processs(int ac)
 		i++;
 	}
 }
-
+void here_doc_checker(int ac, char **av, int *end)
+{
+	if (ac >= 6)
+		here_doc(end, av);
+	else
+	{
+		(close(end[1]), close(end[0]));
+		exit(EXIT_FAILURE);
+	}
+}
 int	main(int ac, char **av, char **envp)
 {
 	int	end[2];
@@ -36,15 +45,7 @@ int	main(int ac, char **av, char **envp)
 		if (pipe(end) == -1)
 			error_msg();
 		if (ft_strncmp(av[1], "here_doc", 9) == 0)
-		{
-			if (ac >= 6)
-				here_doc(end, av);
-			else
-			{
-				(close(end[1]), close(end[0]));
-				return (EXIT_FAILURE);
-			}
-		}
+			here_doc_checker(ac,av,end);
 		else
 			process_one(end, av, envp);
 		multiple_pipes(ac, end, av, envp);
